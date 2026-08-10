@@ -11,4 +11,6 @@ def criar_app():
 
     db.init_app(app)
 
+    from app import entidades #ele está aqui para iniciar os models antes de criar as tabelas
+
     return app

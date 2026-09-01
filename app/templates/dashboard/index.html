@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Dashboard
+{% endblock %}
+
+{% block conteudo %}
+
+<h2>Dashboard</h2>
+
+<p>Bem-vindo, {{ current_user.nome }}!</p>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Clientes</h3>
+        <p>{{ total_clientes }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Profissionais</h3>
+        <p>{{ total_profissionais }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Serviços</h3>
+        <p>{{ total_servicos }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Agendamentos</h3>
+        <p>{{ total_agendamentos }}</p>
+    </div>
+
+</div>
+
+{% endblock %}

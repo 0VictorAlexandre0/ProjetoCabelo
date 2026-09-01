@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <title>{% block titulo %}ProjetoCabelo{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>ProjetoCabelo</h1>
+    </header>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="#">Clientes</a>
+        <a href="#">Profissionais</a>
+        <a href="#">Serviços</a>
+        <a href="#">Agendamentos</a>
+        <a href="/logout">Sair</a>
+    </nav>
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+
+</body>
+</html>

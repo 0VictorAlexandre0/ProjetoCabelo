@@ -23,6 +23,8 @@ def criar_app():
         return db.session.get(Administrador, int(id))
         
     from app.autenticacao.routes import autenticacao
+    from app.entidades.clientes.routes import clientes
     app.register_blueprint(autenticacao)
+    app.register_blueprint(clientes)
 
     return app

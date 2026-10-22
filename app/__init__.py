@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from flask_login import LoginManager
@@ -8,6 +8,10 @@ login_manager = LoginManager()
 
 def criar_app():
     app = Flask(__name__)
+
+    @app.route("/")
+    def inicio():
+        return redirect(url_for("autenticacao.login"))
 
     app.config.from_object(Config)
 

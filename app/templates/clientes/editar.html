@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block titulo %} Editar Cliente {% endblock %}
+
+{% block conteudo %}
+<h2>Editar Cliente</h2>
+
+<form method="POST" action="{{ url_for('clientes.editar_cliente', id=cliente.id)}}">
+
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" maxlength="100" value="{{cliente.nome}}" required>
+    </div>
+
+    <div>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" maxlength="20" value="{{cliente.telefone}}" required>
+    </div>
+
+    <div>
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" id="email" maxlength="100" value="{{cliente.email or ''}}">
+    </div>
+
+    <button type="submit">Salvar Alterações</button>
+    <a href="{{ url_for('clientes.listar_clientes') }}">Cancelar</a>
+</form>
+{%endblock%}

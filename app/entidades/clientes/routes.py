@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
+from app import db
 from app.entidades.clientes.model import Clientes
 from flask_login import login_required
+
 
 clientes = Blueprint("clientes", __name__)
 
@@ -11,3 +13,53 @@ def listar_clientes():
     clientes = Clientes.query.all()
 
     return render_template("clientes/index.html", clientes=clientes)
+
+
+@clientes.route("/clientes/novo", methods=["GET", "POST"])
+@login_required
+def novo_cliente():
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        telefone = request.form.get("telefone")
+        email = request.form.get("email")
+
+        cliente = Clientes(
+            nome = nome,
+            telefone = telefone,
+            email = email
+        )
+
+        db.session.add(cliente)
+        db.session.commit()
+
+        return redirect(url_for("clientes.listar_clientes"))
+    
+    return render_template("clientes/novo.html")
+
+
+@clientes.route("/clientes/editar/<int:id>", methods= ["GET", "POST"])
+@login_required
+def editar_cliente(id):
+    cliente = Clientes.query.get_or_404(id)
+
+    if request.method == "POST":
+        cliente.nome = request.form.get("nome")
+        cliente.telefone = request.form.get("telefone")
+        cliente.email = request.form.get("email")
+
+        db.session.commit()
+
+        return redirect(url_for("clientes.listar_clientes"))
+    
+    return render_template("clientes/editar.html", cliente=cliente)
+
+
+@clientes.route("/clientes/excluir/<int:id>", methods=["POST"])
+@login_required
+def excluir_cliente(id):
+    cliente = Clientes.query.get_or_404(id)
+
+    db.session.delete(cliente)
+    db.session.commit()
+
+    return redirect(url_for("clientes.listar_clientes"))

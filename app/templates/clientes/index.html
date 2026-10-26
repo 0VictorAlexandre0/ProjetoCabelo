@@ -8,6 +8,18 @@ Clientes
 
 <h2>Clientes</h2>
 
+<form method="GET" action="{{ url_for('clientes.listar_clientes')}}">
+
+    <label for="busca">Pesquisar cliente por nome</label>
+
+    <input type="text" id="busca" name="busca" value="{{busca}}" placeholder="Digite o nome do cliente">
+
+    <button type="submit">Pesquisar</button>
+
+    <a href="{{url_for('clientes.listar_clientes')}}">Limpar pesquisa</a>
+    
+</form>
+
 <a href="{{ url_for('clientes.novo_cliente') }}">Novo Cliente</a>
 
 <table>

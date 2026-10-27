@@ -62,7 +62,7 @@ def editar_profissional(id):
     return render_template("profissionais/editar.html", profissional=profissional)
 
 
-@profissionais.route("/profissionais/excluir/<int:id>", method=["POST"])
+@profissionais.route("/profissionais/excluir/<int:id>", methods=["POST"])
 @login_required
 def excluir_profissional(id):
     profissional = Profissionais.query.get_or_404(id)

@@ -15,8 +15,8 @@
     <nav>
         <a href="/dashboard">Dashboard</a>
         <a href="{{ url_for('clientes.listar_clientes') }}">Clientes</a>
-        <a href="#">Profissionais</a>
-        <a href="#">Serviços</a>
+        <a href="{{url_for('profissionais.listar_profissionais')}}">Profissionais</a>
+        <a href="{{url_for('servicos.listar_servicos')}}">Serviços</a>
         <a href="#">Agendamentos</a>
         <a href="/logout">Sair</a>
     </nav>

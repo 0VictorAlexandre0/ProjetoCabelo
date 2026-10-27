@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Editar Profissional
+{% endblock %}
+
+{% block conteudo %}
+
+<h2>Editar Profissionais</h2>
+
+<form method="POST" action="{{url_for('profissionais.editar_profissional', id=profissional,id)}}">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" maxlength="100" value="{{profissional.nome}}" required>
+    </div>
+
+    <div>
+        <label for="especialidade">Especialidade:</label>
+        <input type="text" name="especialidade" id="especialidade" maxlength="100" value="{{profissional.especialidade}}" required>
+    </div>
+
+    <div>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" maxlength="20" value="{{profissional.telefone}}" required>
+    </div>
+
+    <button type="submit">Salvar Alterações</button>
+
+    <a href="{{url_for('profissionais.listar_profissionais')}}">Cancelar</a>
+</form>
+
+{% endblock %}

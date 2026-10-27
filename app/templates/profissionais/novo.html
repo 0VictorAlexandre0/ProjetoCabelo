@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Novo Profissional
+{% endblock %}
+
+{% block conteudo %}
+
+<h2>Novo Profissional</h2>
+
+<form method="POST" action="{{url_for('profissionais.novo_profissional')}}">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" maxlength="100" required>
+    </div>
+
+    <div>
+        <label for="especialidade">Especialidade</label>
+        <input type="text" name="especialidade" id="especialidade" maxlength="100" required>
+    </div>
+
+    <div>
+        <label for="telefone">Telefone</label>
+        <input type="text" name="telefone" id="telefone" maxlength="20" required>
+    </div>
+
+    <button type="submit">Cadastrar</button>
+
+    <a href="{{url_for('profissionais.listar_profissionais')}}">Cancelar</a>
+</form>
+
+{% endblock %}

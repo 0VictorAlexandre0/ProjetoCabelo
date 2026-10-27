@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Serviços
+{% endblock %}
+
+{% block conteudo %}
+
+<h2>Serviços</h2>
+
+<form method="GET" action="{{url_for('servicos.listar_servicos')}}">
+    <label for="busca">Pesquisar serviço por nome:</label>
+
+    <input type="text" name="busca" id="busca" value="{{busca}}" placeholder="Digite o nome do serviço">
+
+    <button type="submit">Pesquisar</button>
+
+    <a href="{{url_for('servicos.listar_servicos')}}">Limpar pesquisa</a>
+</form>
+
+<p><a href="{{url_for('servicos.novo_servico')}}">Novo Serviço</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Duração (minutos)</th>
+            <th>Preço (R$)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for servico in servicos %}
+        <tr>
+            <td>{{servico.id}}</td>
+            <td>{{servico.nome}}</td>
+            <td>{{servico.duracao}}</td>
+            <td>{{"%.2f"|format(servico.preco)}}</td>
+
+            <td>
+                <a href="{{ url_for('servicos.editar_servico', id=servico.id) }}">Editar</a>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('servicos.excluir_servico', id=servico.id) }}"
+                    onsubmit="return confirm('Tem certeza de que deseja excluir este serviço?');"
+                    style="display: inline;">
+
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

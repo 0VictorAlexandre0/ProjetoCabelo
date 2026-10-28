@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container mt-4">
+    <h2>Novo Agendamento</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label for="clientes_id" class="form-label">Clientes</label>
+            <select name="clientes_id" id="clientes_id" class="form-select" required>
+                <option value="">Selecione um cliente</option>
+                {% for cliente in clientes %}
+                    <option value="{{cliente.id}}">{{cliente.nome}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="profissionais_id" class="form-label">Profissional</label>
+            <select name="profissionais_id" id="profissionais_id" class="form-select" required>
+                <option value="">Selecione um profissional</option>
+                {% for profissional in profissionais %}
+                    <option value="{{profissional.id}}">{{profissional.nome}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="servicos.id" class="form-label">Serviço</label>
+            <select name="servicos_id" id="servicos_id" class="form-select" required>
+                <option value="">Selecione um serviço</option>
+                {% for servico in servicos %}
+                    <option value="{{servico.id}}">{{servico.nome}} - {{servico.duracao}} min</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" name="data" id="data" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" name="hora" id="hora" class="form-control" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="status" class="form-select" required>
+                {% for status in status_agendamentos %}
+                    <option value="{{status.name}}" {% if status.name == "AGENDADO" %}selected{% endif %}>
+                        {{status.value}}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Agendamento</button>
+
+        <a href="{{url_for('agendamentos.listar_agendamentos')}}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

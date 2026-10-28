@@ -30,9 +30,12 @@ def criar_app():
     from app.entidades.clientes.routes import clientes
     from app.entidades.profissionais.routes import profissionais
     from app.entidades.servicos.routes import servicos
+    from app.entidades.agendamentos.routes import agendamentos
+    
     app.register_blueprint(autenticacao)
     app.register_blueprint(clientes)
     app.register_blueprint(profissionais)
     app.register_blueprint(servicos)
+    app.register_blueprint(agendamentos)
 
     return app

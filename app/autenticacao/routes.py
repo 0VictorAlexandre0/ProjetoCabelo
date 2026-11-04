@@ -41,9 +41,9 @@ def dashboard():
 
     return render_template("dashboard/index.html", total_clientes=total_clientes, total_profissionais=total_profissionais, total_servicos=total_servicos, total_agendamentos=total_agendamentos)
     
-
+    
 @autenticacao.route("/logout")
 @login_required
 def logout():
-    logout_user() 
-    return "Logout realizado com sucesso"
+    logout_user()
+    return render_template("autenticacao/logout.html")

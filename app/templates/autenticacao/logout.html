@@ -1,0 +1,12 @@
+{% block conteudo %}
+
+<div class="container mt-5 text-center">
+    <h2>Logout realizado com sucesso!</h2>
+    <p>Você saiu da sua conta.</p>
+
+    <a href="{{ url_for('autenticacao.login') }}" class="btn btn-primary">
+        Fazer Login
+    </a>
+</div>
+
+{% endblock %}

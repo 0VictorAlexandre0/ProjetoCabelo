@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="container mt-4">
+    <h2>Excluir Agendamento</h2>
+
+    <p>Tem certeza de que deseja excluir este agendamento?</p>
+
+    <form method="POST" action="{{url_for('agendamentos.excluir_agendamento', id=agendamento.id)}}">
+
+        <div class="mb-3">
+            <label class="form-label">Cliente</label>
+            <input type="text" class="form-control" value="{{cliente.nome}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Profissional</label>
+            <input type="text" class="form-control" value="{{profissional.nome}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Serviço</label>
+            <input type="text" class="form-control" value="{{servico.nome}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Data</label>
+            <input type="text" class="form-control" value="{{agendamento.data.strftime('%d/%m/%Y')}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hora</label>
+            <input type="text" class="form-control" value="{{agendamento.hora.strftime('%H:%M')}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <input type="text" class="form-control" value="{{agendamento.status.value}}" disabled>
+        </div>
+
+        <a href="{{url_for('agendamentos.listar_agendamentos')}}" class="btn btn-secondary">
+            Cancelar
+        </a>
+
+        <button type="submit" class="btn btn-danger">
+            Confirmar exclusão
+        </button>
+
+    </form>
+</div>
+
+{% endblock %}

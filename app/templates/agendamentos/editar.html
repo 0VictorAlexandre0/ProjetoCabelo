@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="container mt-4">
+    <h2>Editar Agendamento</h2>
+
+    <form method="POST" id="form-editar-agendamento">
+        <fieldset {% if agendamento.data < hoje %}disabled{% endif %} style="border: none; padding: 0; margin: 0;">
+            <div class="mb-3">
+                <label for="clientes_id" class="form-label">Cliente</label>
+                <select name="clientes_id" id="clientes_id" class="form-select" required>
+                    {% for cliente in clientes %}
+                        <option value="{{cliente.id}}" {% if cliente.id == agendamento.clientes_id %}selected{% endif %}>
+                            {{cliente.nome}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="profissionais_id" class="form-label">Profissional</label>
+                <select name="profissionais_id" id="profissionais_id" class="form-select" required>
+                    {% for profissional in profissionais %}
+                        <option value="{{profissional.id}}" {% if profissional.id == agendamento.profissionais_id %}selected{% endif %}>
+                            {{profissional.nome}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="servicos_id" class="form-label">Serviço</label>
+                <select name="servicos_id" id="servicos_id" class="form-select" required>
+                    {% for servico in servicos %}
+                        <option value="{{servico.id}}" {% if servico.id == agendamento.servicos_id %}selected{% endif %}>
+                            {{servico.nome}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="data" class="form-label">Data</label>
+                <input type="date" name="data" id="data" class="form-control" min="{{hoje}}" value="{{agendamento.data.isoformat()}}" required>
+                <div id="mensagem-data" class="text-danger small mt-1">
+                    {{ erro_data or '' }}
+                </div>
+
+            <div class="mb-3">
+                <label for="hora" class="form-label">Hora</label>
+                <select name="hora" id="hora" class="form-select" required>
+                    {% for minutos in range(480, 1141, 5) %}
+                        {% set horario = "%02d:%02d"|format(minutos // 60, minutos % 60) %}
+                        <option value="{{horario}}" {% if horario == agendamento.hora.strftime('%H:%M') %}selected{% endif %}>
+                            {{horario}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <div id="mensagem-hora" class="text-danger small mt-1">
+                    {{ erro_hora or '' }}
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="status" class="form-select" required>
+                {% for status in status_agendamentos %}
+                    <option value="{{status.name}}" {% if status == agendamento.status %}selected{% endif %}>
+                        {{status.value}}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{{url_for('agendamentos.listar_agendamentos')}}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/agendamentos/validar_agendamento.js') }}"></script>
+
+{% endblock %}

@@ -38,12 +38,20 @@
 
         <div class="mb-3">
             <label for="data" class="form-label">Data</label>
-            <input type="date" name="data" id="data" class="form-control" required>
+            <input type="date" name="data" id="data" class="form-control" min="{{hoje}}" required>
+            <div id="mensagem-data" class="text-danger small mt-1"></div>
         </div>
 
         <div class="mb-3">
             <label for="hora" class="form-label">Hora</label>
-            <input type="time" name="hora" id="hora" class="form-control" required>
+            <select name="hora" id="hora" class="form-select" required>
+                <option value="">Selecione um horário</option>
+                {% for minutos in range(480, 1141, 5) %}
+                    {% set horario = "%02d:%02d"|format(minutos // 60, minutos % 60) %}
+                    <option value="{{horario}}">{{horario}}</option>
+                {% endfor %}
+            </select>
+            <div id="mensagem-hora" class="text-danger small mt-1"></div>
         </div>
 
 
@@ -63,4 +71,7 @@
         <a href="{{url_for('agendamentos.listar_agendamentos')}}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+
+<script src="{{ url_for('static', filename='js/agendamentos/validar_agendamento.js') }}"></script>
+
 {% endblock %}

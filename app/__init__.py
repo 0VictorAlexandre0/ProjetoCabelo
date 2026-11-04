@@ -18,6 +18,10 @@ def criar_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    login_manager.login_view = "autenticacao.login"
+    login_manager.login_message = "Faça login para acessar esta página."
+    login_manager.login_message_category = "warning"
+
     from app import entidades 
 
     from app.entidades.administrador.model import Administrador

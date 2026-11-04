@@ -8,7 +8,7 @@ Editar Profissional
 
 <h2>Editar Profissionais</h2>
 
-<form method="POST" action="{{url_for('profissionais.editar_profissional', id=profissional,id)}}">
+<form method="POST" action="{{url_for('profissionais.editar_profissional', id=profissional.id)}}">
     <div>
         <label for="nome">Nome:</label>
         <input type="text" name="nome" id="nome" maxlength="100" value="{{profissional.nome}}" required>

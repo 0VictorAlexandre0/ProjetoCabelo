@@ -1,5 +1,5 @@
 from datetime import date, time, datetime
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from flask_login import login_required
 
 from app import db
@@ -8,8 +8,27 @@ from app.entidades.clientes.model import Clientes
 from app.entidades.profissionais.model import Profissionais
 from app.entidades.servicos.model import Servicos
 
-
 agendamentos = Blueprint("agendamentos", __name__)
+
+@agendamentos.route("/agendamentos/profissionais/<int:servico_id>")
+@login_required
+def profissionais_por_servico(servico_id):
+    profissionais = (
+        Profissionais.query
+        .join(Profissionais.servicos)
+        .filter(Servicos.id == servico_id)
+        .order_by(Profissionais.nome)
+        .all()
+    )
+
+    return jsonify([
+        {
+            "id": profissional.id,
+            "nome": profissional.nome
+        }
+        for profissional in profissionais
+    ])
+
 
 @agendamentos.route("/agendamentos")
 @login_required
@@ -35,7 +54,7 @@ def listar_agendamentos():
 @login_required
 def novo_agendamento():
     clientes = Clientes.query.order_by(Clientes.nome).all()
-    profissionais = Profissionais.query.order_by(Profissionais.nome).all()
+    profissionais = []
     servicos = Servicos.query.order_by(Servicos.nome).all()
 
     if request.method == "POST":
@@ -61,6 +80,9 @@ def novo_agendamento():
             return(
                 "Selecione um cliente, profissional e serviço válidos", 400
             )
+        
+        if servico not in profissional.servicos:
+            return "O profissional selecionado não realiza este serviço.", 400
         
         if not data_agendamento or not hora_informada or not status_agendamento:
             return(
@@ -152,6 +174,9 @@ def editar_agendamento(id):
 
         if not cliente or not profissional or not servico:
             return "Selecione dados válidos para o agendamento.", 400
+        
+        if servico not in profissional.servicos:
+            return "O profissional selecionado não realiza este serviço.", 400
 
         if data_agendamento < date.today():
             return render_template(

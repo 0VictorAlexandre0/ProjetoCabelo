@@ -8,3 +8,9 @@ class Servicos(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     duracao = db.Column(db.Integer, nullable=False)
     preco = db.Column(db.Numeric(10,2), nullable=False)
+
+    profissionais = db.relationship(
+        "Profissionais",
+        secondary = "profissionais_servicos",
+        back_populates = "servicos"
+    )

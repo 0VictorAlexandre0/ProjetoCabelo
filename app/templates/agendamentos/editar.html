@@ -20,17 +20,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="profissionais_id" class="form-label">Profissional</label>
-                <select name="profissionais_id" id="profissionais_id" class="form-select" required>
-                    {% for profissional in profissionais %}
-                        <option value="{{profissional.id}}" {% if profissional.id == agendamento.profissionais_id %}selected{% endif %}>
-                            {{profissional.nome}}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="mb-3">
                 <label for="servicos_id" class="form-label">Serviço</label>
                 <select name="servicos_id" id="servicos_id" class="form-select" required>
                     {% for servico in servicos %}
@@ -42,11 +31,24 @@
             </div>
 
             <div class="mb-3">
+                <label for="profissionais_id" class="form-label">Profissional</label>
+                <select name="profissionais_id" id="profissionais_id" class="form-select" required>
+                    {% for profissional in profissionais %}
+                        <option value="{{profissional.id}}" {% if profissional.id == agendamento.profissionais_id %}selected{% endif %}>
+                            {{profissional.nome}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="mb-3">
                 <label for="data" class="form-label">Data</label>
                 <input type="date" name="data" id="data" class="form-control" min="{{hoje}}" value="{{agendamento.data.isoformat()}}" required>
                 <div id="mensagem-data" class="text-danger small mt-1">
                     {{ erro_data or '' }}
                 </div>
+            </div>
 
             <div class="mb-3">
                 <label for="hora" class="form-label">Hora</label>
@@ -58,9 +60,11 @@
                         </option>
                     {% endfor %}
                 </select>
+
                 <div id="mensagem-hora" class="text-danger small mt-1">
                     {{ erro_hora or '' }}
                 </div>
+
             </div>
         </fieldset>
 

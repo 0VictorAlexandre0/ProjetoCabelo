@@ -16,21 +16,21 @@
         </div>
 
         <div class="mb-3">
-            <label for="profissionais_id" class="form-label">Profissional</label>
-            <select name="profissionais_id" id="profissionais_id" class="form-select" required>
-                <option value="">Selecione um profissional</option>
-                {% for profissional in profissionais %}
-                    <option value="{{profissional.id}}">{{profissional.nome}}</option>
+            <label for="servicos_id" class="form-label">Serviço</label>
+            <select name="servicos_id" id="servicos_id" class="form-select" required>
+                <option value="">Selecione um serviço</option>
+                {% for servico in servicos %}
+                    <option value="{{servico.id}}">{{servico.nome}} - {{servico.duracao}} min</option>
                 {% endfor %}
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="servicos.id" class="form-label">Serviço</label>
-            <select name="servicos_id" id="servicos_id" class="form-select" required>
-                <option value="">Selecione um serviço</option>
-                {% for servico in servicos %}
-                    <option value="{{servico.id}}">{{servico.nome}} - {{servico.duracao}} min</option>
+            <label for="profissionais_id" class="form-label">Profissional</label>
+            <select name="profissionais_id" id="profissionais_id" class="form-select" required>
+                <option value="">Selecione um profissional</option>
+                {% for profissional in profissionais %}
+                    <option value="{{profissional.id}}">{{profissional.nome}}</option>
                 {% endfor %}
             </select>
         </div>

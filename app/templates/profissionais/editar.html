@@ -24,6 +24,28 @@ Editar Profissional
         <input type="text" name="telefone" id="telefone" maxlength="20" value="{{profissional.telefone}}" required>
     </div>
 
+    <div>
+        <label>Serviços que realiza:</label>
+
+        {% for servico in servicos %}
+        <div>
+            <input 
+                type="checkbox"
+                name="servicos"
+                id="servico_{{servico.id}}"
+                value="{{servico.id}}"
+                {% if servico in profissional.servicos %}checked{% endif %}
+                {% if servico.id|string in request.form.getlist('servicos') %}checked{% endif %}
+            >
+            <label for="servico_{{servico.id}}">{{servico.nome}}</label>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if erro %}
+        <p class="text-danger">{{ erro }}</p>
+    {% endif %}
+
     <button type="submit">Salvar Alterações</button>
 
     <a href="{{url_for('profissionais.listar_profissionais')}}">Cancelar</a>
